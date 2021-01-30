@@ -15,7 +15,11 @@ public class SliceController : MonoBehaviour
 
     void Start()
     {
-        
+        EventManager EM = EventManager.Get(gameObject);
+        if (EM != null)
+        {
+            EM.Evt_InitVolume.Invoke(_sliceMesh);
+        }
     }
 
     int count = 0;
@@ -47,6 +51,13 @@ public class SliceController : MonoBehaviour
             //AddHullComponents(bottom);
             //AddHullComponents(top);
             Destroy(_sliceMesh.gameObject);
+
+
+            EventManager EM = EventManager.Get(gameObject);
+            if (EM != null)
+            {
+                EM.Evt_OnSliceMesh.Invoke(top);
+            }
         }
     }
 
