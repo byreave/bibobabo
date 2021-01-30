@@ -1,0 +1,20 @@
+
+jingyu.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shenti
+  rotate: false
+  xy: 2, 254
+  size: 882, 828
+  orig: 882, 828
+  offset: 0, 0
+  index: -1
+yuchi
+  rotate: false
+  xy: 886, 713
+  size: 196, 369
+  orig: 196, 369
+  offset: 0, 0
+  index: -1
