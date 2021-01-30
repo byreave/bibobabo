@@ -7,6 +7,9 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField, Tooltip("Force to rotate the player.")]
     private float PlayerAngularForce = 100.0f;
 
+    [Tooltip("Freeze the position and rotation by code.")]
+    public bool bForceFreeze2D = true;
+
     private Rigidbody PlayerRB;
     private float PlayerMass = 100.0f;
     // Start is called before the first frame update
@@ -25,7 +28,14 @@ public class CharacterMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        if(bForceFreeze2D && PlayerRB)
+        {
+            PlayerRB.velocity = new Vector3(PlayerRB.velocity.x, PlayerRB.velocity.y, 0.0f);
+            PlayerRB.angularVelocity = new Vector3(0.0f, 0.0f, PlayerRB.angularVelocity.z);
+
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+            transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.rotation.eulerAngles.z);
+        }
     }
 
     void PlayerMove(float inputVal)
