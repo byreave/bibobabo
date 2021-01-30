@@ -9,7 +9,8 @@ public class EventManager : MonoBehaviour
 
     //public Del_Void Evt_SliceMesh = delegate { };
     public Del_Void_GameObject Evt_InitVolume = delegate { };
-    public Del_Void_GameObject Evt_OnSliceMesh = delegate { };
+    //public Del_Void_GameObject Evt_OnSliceMesh = delegate { };
+    public Del_Void_GameObject Evt_OnSwitchSliceMesh = delegate { };
 
 
 
