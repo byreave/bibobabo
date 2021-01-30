@@ -162,7 +162,7 @@ public class SliceController : MonoBehaviour
             EventManager EM = EventManager.Get(gameObject);
             if (EM != null)
             {
-                EM.Evt_OnSliceMesh.Invoke(top);
+                EM.Evt_OnSwitchSliceMesh.Invoke(top);
             }
         }
     }
@@ -183,6 +183,9 @@ public class SliceController : MonoBehaviour
             GameObject bottom = hull.CreateLowerHull(_sliceMesh, null);
             GameObject top = hull.CreateUpperHull(_sliceMesh, null);
 
+            var MoveComp = _sliceMesh.GetComponent<CharacterMovement>();
+            float oriPlayerAngularForce = MoveComp.GetPlayerAngularForce();
+
             Destroy(_sliceMesh.gameObject);
 
             if (useTop)
@@ -198,11 +201,13 @@ public class SliceController : MonoBehaviour
                 AddHullComponents(top, true);
             }
 
+            var MovementComp = _sliceMesh.AddComponent<CharacterMovement>();
+            MovementComp.SetPlayerAngularForce(oriPlayerAngularForce);
 
             EventManager EM = EventManager.Get(gameObject);
             if (EM != null)
             {
-                EM.Evt_OnSliceMesh.Invoke(top);
+                EM.Evt_OnSwitchSliceMesh.Invoke(_sliceMesh);
             }
         }
     }
@@ -220,7 +225,7 @@ public class SliceController : MonoBehaviour
         Rigidbody rb = obj.AddComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezePositionZ| RigidbodyConstraints.FreezeRotationY| RigidbodyConstraints.FreezeRotationX;
 
-        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.interpolation = RigidbodyInterpolation.None;//RigidbodyInterpolation.Interpolate;
         MeshCollider collider = obj.AddComponent<MeshCollider>();
         collider.convex = true;
 

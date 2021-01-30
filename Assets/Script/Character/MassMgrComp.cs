@@ -22,7 +22,7 @@ public class MassMgrComp : MonoBehaviour
         if (EM != null)
         {
             EM.Evt_InitVolume += InitVolume;
-            EM.Evt_OnSliceMesh += OnSliceMesh;
+            EM.Evt_OnSwitchSliceMesh += OnSliceMesh;
         }
     }
 

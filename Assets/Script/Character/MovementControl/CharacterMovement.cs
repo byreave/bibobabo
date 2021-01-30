@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [Tooltip("Force to rotate the player.")]
-    public float PlayerAngularForce = 100.0f;
+    [SerializeField, Tooltip("Force to rotate the player.")]
+    private float PlayerAngularForce = 100.0f;
 
     private Rigidbody PlayerRB;
     private float PlayerMass = 100.0f;
@@ -46,5 +46,15 @@ public class CharacterMovement : MonoBehaviour
     public float GetPlayerMass()
     {
         return PlayerMass;
+    }
+
+    public float GetPlayerAngularForce()
+    {
+        return PlayerAngularForce;
+    }
+
+    public void SetPlayerAngularForce(float _playerAngularForce)
+    {
+        PlayerAngularForce = _playerAngularForce;
     }
 }
