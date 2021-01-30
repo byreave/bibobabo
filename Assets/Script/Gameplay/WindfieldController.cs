@@ -24,7 +24,6 @@ public class WindfieldController : MonoBehaviour
         GameObject PlayerObject = other.gameObject;
         if (PlayerObject.CompareTag("Player"))
         {
-            Debug.Log("Player Enter");
             WindDirection.Normalize();
             CharacterMovement PlayerMovement = PlayerObject.GetComponent<CharacterMovement>();
             Rigidbody PlayerRb = PlayerObject.GetComponent<Rigidbody>();
