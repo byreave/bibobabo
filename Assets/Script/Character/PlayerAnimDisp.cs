@@ -14,6 +14,7 @@ public class PlayerAnimDisp : MonoBehaviour
     private float _zOffset;
 
     private Vector3 LastSavePos;
+    private Vector3 LastSaveScale;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class PlayerAnimDisp : MonoBehaviour
         if (_playerBody != null)
         {
             LastSavePos = _playerBody.transform.position;
+            LastSaveScale = _playerBody.transform.localScale;
 
             
         }
@@ -89,6 +91,7 @@ public class PlayerAnimDisp : MonoBehaviour
         }
 
         _playerBody.transform.position = LastSavePos;
+        _playerBody.transform.localScale = LastSaveScale;
     }
 
 }
