@@ -8,7 +8,12 @@ public class PlayerAnimDisp : MonoBehaviour
     private GameObject _playerBody;
 
     [SerializeField]
+    private string BodyPrefabName;
+
+    [SerializeField]
     private float _zOffset;
+
+    private Vector3 LastSavePos;
 
     private void Awake()
     {
@@ -20,14 +25,27 @@ public class PlayerAnimDisp : MonoBehaviour
         EventManager EM = EventManager.Get(gameObject);
         if (EM != null)
         {
-            EM.Evt_OnSwitchSliceMesh += OnSwitchSliceMesh;
+            EM.Evt_OnSwitchPlayerBody += OnSwitchSliceMesh;
+            EM.Evt_UpdateSavePos += UpdateSavePos;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (_playerBody != null)
+        {
+            LastSavePos = _playerBody.transform.position;
+
+            
+        }
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            RollBackToLastSavePoint();
+        }
     }
 
     // Update is called once per frame
@@ -45,4 +63,32 @@ public class PlayerAnimDisp : MonoBehaviour
     {
         _playerBody = newObj;
     }
+
+    private void OnResetToLastSavePoint()
+    {
+
+    }
+
+    private void UpdateSavePos(Vector3 SavePos)
+    {
+        LastSavePos = SavePos;
+    }
+
+    private void RollBackToLastSavePoint()
+    {
+        Vector3 pos = _playerBody.transform.position;
+        Quaternion rot = _playerBody.transform.rotation;
+
+        Destroy(_playerBody);
+
+        _playerBody = Instantiate(Resources.Load("Prefabs/"+ BodyPrefabName), pos, rot) as GameObject;
+        EventManager EM = EventManager.Get(gameObject);
+        if(EM != null)
+        {
+            EM.Evt_OnSwitchPlayerBody.Invoke(_playerBody);
+        }
+
+        _playerBody.transform.position = LastSavePos;
+    }
+
 }
