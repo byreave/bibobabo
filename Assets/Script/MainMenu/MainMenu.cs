@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayLevel_1()
     {
-        SceneManager.LoadScene("UITEST");
+        SceneManager.LoadScene("Rongda_Level");
         Debug.Log("Entering Level 1");
     }
     public void PlayLevel_2()
