@@ -36,6 +36,9 @@ public class SliceController : MonoBehaviour
 
     void Update()
     {
+        if (!GameInst.EnableSlice) return;
+        //if (Time.timeScale == 0) return;
+
         SliceTick();
         OnMouseClickInSliceMode();
 
@@ -43,6 +46,7 @@ public class SliceController : MonoBehaviour
 
     void SliceTick()
     {
+        
         //if(!InSliceMode)
         //{
         //    // todo : hidden UI
@@ -100,6 +104,7 @@ public class SliceController : MonoBehaviour
 
         RaycastHit hitInfo = new RaycastHit();
         bool hit = Physics.Raycast(ray, out hitInfo, 30f, 1 << LayerMask.NameToLayer("MouseClick"));// layerMask = 8 : MouseClick
+        
         //Debug.DrawLine(ray.origin, hitInfo.point, Color.green, 10);//DrawRay(ray.origin, ray.direction, Color.green, 10);
         if (hit)
         {
