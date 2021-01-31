@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject Botton_Pause;
-    public GameObject TakeAction;
+    //public GameObject TakeAction;
     public GameObject QuitMenuUI;
     public GameObject ResetMenuUI;
     // Update is called once per frame
@@ -36,9 +36,11 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         Botton_Pause.SetActive(true);
-        TakeAction.SetActive(true);
+        //TakeAction.SetActive(true);
         ResetMenuUI.SetActive(false);
         QuitMenuUI.SetActive(false);
+
+        GameInst.EnableSlice = true;
     }
 
     public void Pause()
@@ -47,7 +49,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         Botton_Pause.SetActive(false);
-        TakeAction.SetActive(false);
+        //TakeAction.SetActive(false);
+        GameInst.EnableSlice = false;
     }
 
     public void LoadMenu()
