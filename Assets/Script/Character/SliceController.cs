@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SliceController : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("切割平面")]
+    //[SerializeField]
+    //[Tooltip("切割平面")]
     private GameObject _slicePlane = null;
 
     [SerializeField]
@@ -16,6 +16,10 @@ public class SliceController : MonoBehaviour
     [SerializeField]
     [Tooltip("切割提示面")]
     private GameObject _sliceTip = null;
+
+    [SerializeField]
+    [Tooltip("切割提示面")]
+    private float _sliceTipZoffset = 3;
 
     private bool InSliceMode = false;
     private List<Vector3> PointList = new List<Vector3>();
@@ -29,23 +33,9 @@ public class SliceController : MonoBehaviour
         }
     }
 
-    int count = 0;
-    bool over = false;
 
     void Update()
     {
-        ////Test
-        //if (over) return;
-        //if (count < 600)
-        //{
-        //    Debug.Log(count);
-        //    count++;
-        //}
-        //else
-        //{
-        //    over = true;
-        //    Slice();
-        //}
         SliceTick();
         OnMouseClickInSliceMode();
 
@@ -86,7 +76,7 @@ public class SliceController : MonoBehaviour
                     float Angle = Vector3.Angle(Dir, new Vector3(1f, 0f, 0f));
                     Angle = (Dir.y < 0) ? 360 - Angle : Angle;
                     Debug.Log(Angle);
-                    _sliceTip.transform.position = new Vector3(LineStart.x, LineStart.y, 0);
+                    _sliceTip.transform.position = new Vector3(LineStart.x, LineStart.y, gameObject.transform.position.z - _sliceTipZoffset);
                     _sliceTip.transform.rotation = new Quaternion();
 
                     _sliceTip.transform.RotateAround(_sliceTip.transform.position, new Vector3(0f, 0f, 1f), Angle);
@@ -162,7 +152,7 @@ public class SliceController : MonoBehaviour
             EventManager EM = EventManager.Get(gameObject);
             if (EM != null)
             {
-                EM.Evt_OnSwitchSliceMesh.Invoke(top);
+                EM.Evt_OnSwitchPlayerBody.Invoke(top);
             }
         }
     }
@@ -201,13 +191,16 @@ public class SliceController : MonoBehaviour
                 AddHullComponents(top, true);
             }
 
+            _sliceMesh.tag = "Player";
             var MovementComp = _sliceMesh.AddComponent<CharacterMovement>();
             MovementComp.SetPlayerAngularForce(oriPlayerAngularForce);
 
             EventManager EM = EventManager.Get(gameObject);
             if (EM != null)
             {
-                EM.Evt_OnSwitchSliceMesh.Invoke(_sliceMesh);
+                EM.Evt_OnSwitchPlayerBody.Invoke(_sliceMesh);
+                float massscale = EM.Evt_OnUpdateMassScale.Invoke(_sliceMesh);
+                MovementComp.UpdatePlayerMass(massscale);
             }
         }
     }
