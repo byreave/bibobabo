@@ -152,7 +152,7 @@ public class SliceController : MonoBehaviour
             EventManager EM = EventManager.Get(gameObject);
             if (EM != null)
             {
-                EM.Evt_OnSwitchSliceMesh.Invoke(top);
+                EM.Evt_OnSwitchPlayerBody.Invoke(top);
             }
         }
     }
@@ -198,7 +198,7 @@ public class SliceController : MonoBehaviour
             EventManager EM = EventManager.Get(gameObject);
             if (EM != null)
             {
-                EM.Evt_OnSwitchSliceMesh.Invoke(_sliceMesh);
+                EM.Evt_OnSwitchPlayerBody.Invoke(_sliceMesh);
                 float massscale = EM.Evt_OnUpdateMassScale.Invoke(_sliceMesh);
                 MovementComp.UpdatePlayerMass(massscale);
             }
