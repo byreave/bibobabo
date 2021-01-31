@@ -4107,9 +4107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9580b30a04c4d3e46b1f630f52be7a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slicePlane: {fileID: 1478339950}
   _sliceMesh: {fileID: 48950643}
   _sliceTip: {fileID: 820595021}
+  _sliceTipZoffset: 3
 --- !u!64 &1478339952
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4197,7 +4197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcda3cfbe87026a49a34b3d7f2090746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _oriMass: 1
 --- !u!114 &1478339957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5174,6 +5173,8 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 2048321542}
   Botton_Pause: {fileID: 815628211}
   TakeAction: {fileID: 1478339950}
+  QuitMenuUI: {fileID: 627549229}
+  ResetMenuUI: {fileID: 1178008353}
 --- !u!114 &1907183747
 MonoBehaviour:
   m_ObjectHideFlags: 0
