@@ -11,11 +11,14 @@ public class CharacterMovement : MonoBehaviour
     public bool bForceFreeze2D = true;
 
     private Rigidbody PlayerRB;
+    private float OriPlayerMass = 100.0f;
     private float PlayerMass = 100.0f;
     // Start is called before the first frame update
+    private float oriZ;
     void Start()
     {
         PlayerRB = GetComponent<Rigidbody>();
+        oriZ = gameObject.transform.position.z;
     }
 
     // Update is called once per frame
@@ -33,7 +36,7 @@ public class CharacterMovement : MonoBehaviour
             PlayerRB.velocity = new Vector3(PlayerRB.velocity.x, PlayerRB.velocity.y, 0.0f);
             PlayerRB.angularVelocity = new Vector3(0.0f, 0.0f, PlayerRB.angularVelocity.z);
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, oriZ);
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.rotation.eulerAngles.z);
         }
     }
@@ -48,9 +51,9 @@ public class CharacterMovement : MonoBehaviour
     }
 
     // Update the player mass, which decides the player's physics interactions.
-    public void UpdatePlayerMass(float inPlayerMass)
+    public void UpdatePlayerMass(float _massScale)
     {
-        PlayerMass = inPlayerMass;
+        PlayerMass = OriPlayerMass * _massScale;
     }
 
     public float GetPlayerMass()

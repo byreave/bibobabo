@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class MassMgrComp : MonoBehaviour
 {
-    [SerializeField, Tooltip("相机跟随目标")]
-    private float _oriMass = 1f;
-
-    private float _curMass = 1f;
     private float _oriVolume;
-    private float _curVolume;
 
     private void Awake()
     {
@@ -22,7 +17,7 @@ public class MassMgrComp : MonoBehaviour
         if (EM != null)
         {
             EM.Evt_InitVolume += InitVolume;
-            EM.Evt_OnSwitchSliceMesh += OnSliceMesh;
+            EM.Evt_OnUpdateMassScale += OnUpdateMassScale;
         }
     }
 
@@ -34,7 +29,7 @@ public class MassMgrComp : MonoBehaviour
     {
         _oriVolume = CalcMeshVolume(BodyObj);
         Debug.Log("Init Volume = " + Mathf.Abs(_oriVolume));
-        SycnMassByVolume();
+        //SycnMassByVolume();
     }
 
     void Update()
@@ -42,10 +37,11 @@ public class MassMgrComp : MonoBehaviour
         
     }
 
-    private void OnSliceMesh(GameObject newMesh)
+    private float OnUpdateMassScale(GameObject newMesh)
     {
-        CalcMeshVolume(newMesh);
-        SycnMassByVolume();
+        float curVloume = CalcMeshVolume(newMesh);
+
+        return curVloume / _oriVolume;
     }
 
     private float CalcMeshVolume(GameObject newMesh)
@@ -86,8 +82,8 @@ public class MassMgrComp : MonoBehaviour
         return (1.0f / 6.0f) * (-v321 + v231 + v312 - v132 - v213 + v123);
     }
 
-    private void SycnMassByVolume()
-    {
-        _curMass = (_curVolume / _oriVolume) * _oriMass;
-    }
+    //private void SycnMassByVolume()
+    //{
+        
+    //}
 }
